@@ -1,37 +1,12 @@
-## Welcome to GitHub Pages
+## walk系列文档
+文档目录主页在 [GitHub源](https://github.com/gaiyinaizhi/weisheng.github.io/edit/master/docs/index.md)维护和预览.
 
-You can use the [editor on GitHub](https://github.com/gaiyinaizhi/gaiyinaizhi.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+本系列区分前端和后端两部分，前端主要包含`walkvm`等组件，后端则构建了以`spring boot`为核心的系列组件.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### walkvm
 
-### Markdown
+`walkvm`是以`jquery`为基础的`mvvm`框架，旨在构建以jquery为核心，兼容jquery周边组件的双向绑定组件，用于重构jquery为基础的项目、ie6/7/8等低版本浏览器兼容的项目研发、多页面应用研发等场景。
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### walk spring boot
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/gaiyinaizhi/gaiyinaizhi.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+`walk spring boot`系列构建了以`spring boot`为核心的系列组件，包含数据库访问、消息队列、缓存、分布式定时任务、web(`登录认证、分布式会话、限流等`)、动态测试桩、分布式锁、分布式序列、分布式追踪、快速参数映射及服务编排`imapper`、前后端一体化工作流程管理`swf`、服务限流等组件
