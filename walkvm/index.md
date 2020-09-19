@@ -1,4 +1,4 @@
-# 文章一览
+# 索引页
 - 基础
   - [入门](https://gaiyinaizhi.github.io/walkvm/basic/index)
   - [指令集](https://gaiyinaizhi.github.io/walkvm/basic/directives)
