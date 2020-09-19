@@ -62,3 +62,9 @@ walkvm是一款基于虚拟DOM与属性劫持的 迷你、 易用的前端MVVM�
 - 指令以`w-duplex`形式或使用短指令`:duplex`形式，或以花括号包围的插值表达式`{{number}}`形式
 - 引导符，以`@`字符来告诉框架这些变量是来自vm的
 - 定义时将自动扫描对应的`id`属性或者以`w-controller`定义的对应id所在dom区域
+
+<div style="display: flex">
+  <div style="display: flex;flex:1;align-items: center;"><a href="https://gaiyinaizhi.github.io/walkvm/basic/index" style="text-align: left;">上一页</a></div>
+  <div style="display: flex;flex:1;align-items: center;"><a href="https://gaiyinaizhi.github.io/walkvm/index" style="text-align: center;">回列表</a></div>
+  <div style="display: flex;flex:1;align-items: center;"><a href="https://gaiyinaizhi.github.io/walkvm/basic/directives" style="text-align: right;">下一页</a></div>
+</div>
