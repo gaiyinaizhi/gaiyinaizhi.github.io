@@ -25,6 +25,7 @@
 | duplex              | 双向绑定，通常用于绑定form表单中某input/select的值           | 99999  |
 | jq                  | 桥接jquery的api，不重要                                      | 10600  |
 
+============================================
 <div style="display: flex">
   <div style="display: flex;flex:1;align-items: center;"><a href="https://gaiyinaizhi.github.io/walkvm/basic/index" style="text-align: left;">上一页</a></div>
   <div style="display: flex;flex:1;align-items: center;"><a href="https://gaiyinaizhi.github.io/walkvm/index" style="text-align: center;">回列表</a></div>
