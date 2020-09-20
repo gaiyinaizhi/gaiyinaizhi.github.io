@@ -108,8 +108,6 @@
   <a @click="someFunc | when(clickedTimes < 2)">click to reponse</a>
   ````
 
-<div style="display: flex">
-  <div style="display: flex;flex:1;align-items: center;"><a href="https://gaiyinaizhi.github.io/walkvm/basic/for" style="text-align: left;">上一页</a></div>
-  <div style="display: flex;flex:1;align-items: center;"><a href="https://gaiyinaizhi.github.io/walkvm/index" style="text-align: center;">回列表</a></div>
-  <div style="display: flex;flex:1;align-items: center;"><a href="https://gaiyinaizhi.github.io/walkvm/basic/filter" style="text-align: right;">下一页</a></div>
-</div>
+## 
+| [<-循环](https://gaiyinaizhi.github.io/walkvm/basic/for)                | [回列表](https://gaiyinaizhi.github.io/walkvm/index) |
+| ------------------- | ------------------------------------------------------------ | 

@@ -20,10 +20,7 @@ for 指令可用于循环对象中的key/value进行输出，或输出数组中�
 
 - 使用过滤器对数组进行处理后输出，详情参见`过滤器`章节
 
-- 使用详情见 [for循环测试用例](../dashboard/usecase/for.html)
 
-<div style="display: flex">
-  <div style="display: flex;flex:1;align-items: center;"><a href="https://gaiyinaizhi.github.io/walkvm/basic/expr" style="text-align: left;">上一页</a></div>
-  <div style="display: flex;flex:1;align-items: center;"><a href="https://gaiyinaizhi.github.io/walkvm/index" style="text-align: center;">回列表</a></div>
-  <div style="display: flex;flex:1;align-items: center;"><a href="https://gaiyinaizhi.github.io/walkvm/basic/filter" style="text-align: right;">下一页</a></div>
-</div>
+## 
+| [<-插值表达式](https://gaiyinaizhi.github.io/walkvm/basic/expr)                | [回列表](https://gaiyinaizhi.github.io/walkvm/index)                                                         | [过滤器->](https://gaiyinaizhi.github.io/walkvm/basic/filter) |
+| ------------------- | ------------------------------------------------------------ | ------ |
