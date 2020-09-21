@@ -50,11 +50,5 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
-markdown: rdiscount
 
-rdiscount:
-
-  extensions:
-
-    - generate_toc
 
