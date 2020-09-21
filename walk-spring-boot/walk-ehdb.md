@@ -33,7 +33,7 @@ public class CreateBeans extends TestBase {
     @Test
     public void createBeans() throws Exception {
         // 1. 指定生成到哪个工程
-        String basePath = "E:\\MyWork\\code\\git\\czpzx\\walk\\walk-spring-boot\\walk-scheduler-parent\\walk-scheduler\\src\\main\\java";  // 生成文件的路径
+        String basePath = "E:\\app-name\\src\\main\\java";  // 生成文件的路径
         // 2. 配置生成需要的2个字段
         String beanPackage = "org.walkframework.boot.scheduler.bean"; // bean生成的目录
         //String repositoryPackage = "com.asiainfo.ica.collect.service.atom.sys"; // repository生成的目录
@@ -190,8 +190,8 @@ public class ScheduleTask extends BaseBean implements java.io.Serializable {
 
 ````properties
 # 基础配置, base即数据源的标识，在代码中使用baseStaticDAO注入操作类
-walk.datasource.base.url=jdbc:mysql://xxx:3306/pre_sale_dtouc?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8
-walk.datasource.base.username=pre_sale_dtouc
+walk.datasource.base.url=jdbc:mysql://xxx:3306/dbname?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8
+walk.datasource.base.username=dbname
 walk.datasource.base.password=加密的密码或对应walk-security-pass的配置项
 walk.datasource.base.driverClassName=com.mysql.jdbc.Driver
 
@@ -220,8 +220,8 @@ walk.datasource.base.connectionProperties=druid.stat.mergeSql=true;druid.stat.sl
 walk.ehdb.config-table=WALK_SQL_CONFIG
 # sql缓存时间，默认2小时
 walk.ehdb.cache-time=7200000
-# 配置事务监听目录，默认com.asiainfo..*.service..*.*(..)
-walk.ehdb.txPointcut = execution(* com.chinaunicom.tp.app.server.service..*.*(..))
+# 配置事务监听目录
+walk.ehdb.txPointcut = execution(* package.app.server.service..*.*(..))
 # 配置事务监听的方法如下，默认监听的方法见下一小节
 walk.ehdb.txMethod.add* = PROPAGATION_REQUIRED,-Throwable
 
