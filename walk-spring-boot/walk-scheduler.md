@@ -127,6 +127,15 @@ walk.module = shop-visitor-task
 
 实现`org.walkframework.boot.tools.lock.service.LockService`，注入到Spring上下文中，以`xxLockService`命名，配置前缀作为lock_mode，如`RedisLockService`自动注册的beanName为redisLockService，则配置lock_mode为redis即可
 
-## 
-| [<-消息队列](https://gaiyinaizhi.github.io/walk-spring-boot/walk-mq) | [回列表](https://gaiyinaizhi.github.io/walk-spring-boot/index) | [快速参数映射及服务编排imapper->](https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-imapper) |
-| ------------------- | ------------------------------------------------------------ | ------ |
+---
+<div style="display: flex">
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/walk-mq"><--消息队列</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/index">回列表</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-imapper">快速参数映射及服务编排imapper--></a>
+  </div>
+</div>

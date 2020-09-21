@@ -1,3 +1,4 @@
+{% raw %}
 ## ehdb使用说明
 
 ## 概述
@@ -510,6 +511,17 @@ select * from table_name where column1 = :column1 and date_column < #{#nowByForm
 - 新增动态表名抽取能力，在初始化bean时可使用setTableName(String tableName) api设置最终表名，也可在应用初始化时使用DynTableNameFactory.register api将某些bean的表名固定修改为其他名称，解决表名冲突或命名规则冲突问题
 
 
-## 
-| [<-基础依赖](https://gaiyinaizhi.github.io/walk-spring-boot/walk-starter-base) | [回列表](https://gaiyinaizhi.github.io/walk-spring-boot/index) | [消息队列->](https://gaiyinaizhi.github.io/walk-spring-boot/walk-mq) |
-| ------------------- | ------------------------------------------------------------ | ------ |
+---
+<div style="display: flex">
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/walk-starter-base"><--基础依赖</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/index">回列表</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/walk-mq">消息队列--></a>
+  </div>
+</div>
+
+{% endraw %}

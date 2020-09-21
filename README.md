@@ -1,5 +1,4 @@
-## walk系列文档
-文档目录主页在 [GitHub源](https://github.com/gaiyinaizhi/gaiyinaizhi.github.io/edit/master/README.md)维护和预览.
+## walk系列文章
 
 本系列区分前端和后端两部分，前端主要包含`walkvm`等组件，后端则构建了以`spring boot`为核心的系列组件.
 

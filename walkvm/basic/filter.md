@@ -1,3 +1,4 @@
+{% raw %}
 # 过滤器
 
 过滤器用于对源表达式进行变形、转换、缩减等，一般为在表达式后加`| filterName(filterParam)`格式，参数部分可省略，简化为`| filterName`格式
@@ -27,7 +28,7 @@
 - `date`               时间类型格式化
 
   ````html
-  <span>{{dateParam | date}}</span> // 默认yyyy-MM-dd hh:mm:ss格式，可加入参定制
+  <span>{{dateParam | date('yyyy-MM-dd hh:mm:ss')}}</span> <!-- 默认yyyy-MM-dd hh:mm:ss格式，可加入参定制 --> 
   ````
 
 - `decimal`         小数位数格式化
@@ -108,6 +109,14 @@
   <a @click="someFunc | when(clickedTimes < 2)">click to reponse</a>
   ````
 
-## 
-| [<-循环](https://gaiyinaizhi.github.io/walkvm/basic/for)                | [回列表](https://gaiyinaizhi.github.io/walkvm/index) |
-| ------------------- | ------------------------------------------------------------ | 
+---
+<div style="display: flex">
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walkvm/basic/for"><--循环</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walkvm/index">回列表</a>
+  </div>
+</div>
+
+{% endraw %}

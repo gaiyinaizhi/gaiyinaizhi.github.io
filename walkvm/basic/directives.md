@@ -1,3 +1,4 @@
+{% raw %}
 # 指令
 
 ## 全部指令
@@ -25,6 +26,18 @@
 | duplex              | 双向绑定，通常用于绑定form表单中某input/select的值           | 99999  |
 | jq                  | 桥接jquery的api，不重要                                      | 10600  |
 
-## 
-| [<-入门](https://gaiyinaizhi.github.io/walkvm/basic/index)                | [回列表](https://gaiyinaizhi.github.io/walkvm/index)                                                         | [插值表达式->](https://gaiyinaizhi.github.io/walkvm/basic/directives) |
-| ------------------- | ------------------------------------------------------------ | ------ |
+---
+
+<div style="display: flex">
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walkvm/basic/index"><--入门</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walkvm/index">回列表</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walkvm/basic/directives">插值表达式--></a>
+  </div>
+</div>
+
+{% endraw %}

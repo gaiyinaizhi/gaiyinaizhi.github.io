@@ -88,6 +88,12 @@
 
 
 
-## 
- | [回列表](https://gaiyinaizhi.github.io/walk-spring-boot/index)   | [数据库访问->](https://gaiyinaizhi.github.io/walk-spring-boot/walk-ehdb) |
- | ------------------------------------------------------------ | ------ |
+---
+<div style="display: flex">
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/index">回列表</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/walk-ehdb">数据库访问--></a>
+  </div>
+</div>

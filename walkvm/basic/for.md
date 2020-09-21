@@ -1,3 +1,4 @@
+{% raw %}
 # for循环
 
 for 指令可用于循环对象中的key/value进行输出，或输出数组中的行数据输出渲染
@@ -21,6 +22,18 @@ for 指令可用于循环对象中的key/value进行输出，或输出数组中�
 - 使用过滤器对数组进行处理后输出，详情参见`过滤器`章节
 
 
-## 
-| [<-插值表达式](https://gaiyinaizhi.github.io/walkvm/basic/expr)                | [回列表](https://gaiyinaizhi.github.io/walkvm/index)                                                         | [过滤器->](https://gaiyinaizhi.github.io/walkvm/basic/filter) |
-| ------------------- | ------------------------------------------------------------ | ------ |
+---
+<div style="display: flex">
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walkvm/basic/for"><--插值表达式</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walkvm/index">回列表</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walkvm/filter">过滤器--></a>
+  </div>
+</div>
+
+
+{% endraw %}

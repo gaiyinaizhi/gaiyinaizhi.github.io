@@ -82,6 +82,12 @@ long slidingWindow() default 60;
 
 
 
-## 
-| [<-分布式追踪](https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-tracer) | [回列表](https://gaiyinaizhi.github.io/walk-spring-boot/index) |
-| ------------------- | ------------------------------------------------------------ |
+---
+<div style="display: flex">
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-tracer"><--分布式追踪</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/index">回列表</a>
+  </div>
+</div>

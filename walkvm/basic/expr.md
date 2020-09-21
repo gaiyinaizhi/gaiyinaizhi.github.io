@@ -1,3 +1,5 @@
+{% raw %}
+
 # 插值表达式
 
 位于文本节点中的双重花括号`{{}}`，当然这个可以配置。此指令为文本`w-text`指令的简单形式。
@@ -25,6 +27,18 @@
 - 表达式中可以做连接、运算等操作
 - 表达式最后可增加过滤器，详情见`过滤器`章节
 
-## 
-| [<-指令集](https://gaiyinaizhi.github.io/walkvm/basic/directives)                | [回列表](https://gaiyinaizhi.github.io/walkvm/index)                                                         | [循环->](https://gaiyinaizhi.github.io/walkvm/basic/for) |
-| ------------------- | ------------------------------------------------------------ | ------ |
+---
+
+<div style="display: flex">
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walkvm/basic/directives"><--指令集</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walkvm/index">回列表</a>
+  </div>
+  <div style="display: flex;flex:1;align-items: center;">
+    <a href="https://gaiyinaizhi.github.io/walkvm/basic/for">循环--></a>
+  </div>
+</div>
+
+{% endraw %}
