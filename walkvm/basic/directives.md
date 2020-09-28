@@ -36,7 +36,7 @@
     <a href="https://gaiyinaizhi.github.io/walkvm/index">回列表</a>
   </div>
   <div style="display: flex;flex:1;align-items: center;">
-    <a href="https://gaiyinaizhi.github.io/walkvm/basic/directives">插值表达式--></a>
+    <a href="https://gaiyinaizhi.github.io/walkvm/basic/expr">插值表达式--></a>
   </div>
 </div>
 

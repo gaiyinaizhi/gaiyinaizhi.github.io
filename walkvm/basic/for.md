@@ -31,7 +31,7 @@ for 指令可用于循环对象中的key/value进行输出，或输出数组中�
     <a href="https://gaiyinaizhi.github.io/walkvm/index">回列表</a>
   </div>
   <div style="display: flex;flex:1;align-items: center;">
-    <a href="https://gaiyinaizhi.github.io/walkvm/filter">过滤器--></a>
+    <a href="https://gaiyinaizhi.github.io/walkvm/basic/filter">过滤器--></a>
   </div>
 </div>
 
