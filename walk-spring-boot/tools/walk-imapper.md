@@ -28,7 +28,6 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
                     <param1 transform="@xxDealService.getParam1(_root)"></param1>
                     <param2 default="">object.param2</param2>
                     <param3 format="trimToNull">param3</param3>
-                    
                     <param4 type="list"
                                transform="@xxSubmitService.composeXxItem(_root)" var="xxItem">
                         <param5>object2.param5</param5>
