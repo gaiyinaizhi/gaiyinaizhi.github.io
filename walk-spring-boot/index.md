@@ -2,7 +2,7 @@
 - 基础
   - [公共依赖](https://gaiyinaizhi.github.io/walk-spring-boot/walk-starter-base)
   - [数据库访问](https://gaiyinaizhi.github.io/walk-spring-boot/walk-ehdb)
-  - 缓存
+  - [缓存](https://gaiyinaizhi.github.io/walk-spring-boot/walk-cache)
   - [消息队列](https://gaiyinaizhi.github.io/walk-spring-boot/walk-mq)
   - [分布式定时任务](https://gaiyinaizhi.github.io/walk-spring-boot/walk-scheduler)
   - web starter(cors/xss/upload/interceptor/session)

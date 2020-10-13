@@ -514,13 +514,13 @@ select * from table_name where column1 = :column1 and date_column < #{#nowByForm
 ---
 <div style="display: flex">
   <div style="display: flex;flex:1;align-items: center;">
-    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/walk-starter-base"><--基础依赖</a>
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/walk-ehdb"><--数据库访问</a>
   </div>
   <div style="display: flex;flex:1;align-items: center;">
     <a href="https://gaiyinaizhi.github.io/walk-spring-boot/index">回列表</a>
   </div>
   <div style="display: flex;flex:1;align-items: center;">
-    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/walk-mq">消息队列--></a>
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/walk-cache">缓存--></a>
   </div>
 </div>
 
