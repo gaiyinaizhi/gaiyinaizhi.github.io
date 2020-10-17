@@ -510,6 +510,11 @@ select * from table_name where column1 = :column1 and date_column < #{#nowByForm
 - 新增updateBatchStepTransaction/updateBatchBySqlStepTransaction/saveBatchStepTransaction api，批量变更时强制使用事务编程保证批量提交，但是不保证事务最终一致，只是为了解决在事务覆盖不到不能手工声明事务时不再逐条提交的问题
 - 新增动态表名抽取能力，在初始化bean时可使用setTableName(String tableName) api设置最终表名，也可在应用初始化时使用DynTableNameFactory.register api将某些bean的表名固定修改为其他名称，解决表名冲突或命名规则冲突问题
 
+#### 3.7.0-2020/10/17
+
+##### 特性变更
+
+- 将`getSequenceXX`系列api实现使用`walk-tools-sequence`组件api完成，此api支持多种序列实现如db、redis等，提供更高性能的序列获取方式
 
 ---
 <div style="display: flex">
