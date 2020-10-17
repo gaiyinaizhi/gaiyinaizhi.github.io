@@ -26,6 +26,16 @@
 
 简易Spring容器支持，默认启动Walk体系的基础starter，可实现快速测试或在无Spring容器状态时快速启动进行组件或业务bean的使用和支持（如spark executor中的组件使用的支持）
 
+#### ConfiguredQualifier注解
+
+使用此注解替换`@Qualifier`，支持如下方式根据配置动态选择实例进行注入，同时支持`#{}`语法，
+从1.8.7版本开始支持
+```java
+@Autowired 
+@ConfiguredQualifier("${ds.profile:default}StaticDAO")
+private StaticDAO staticDAO;
+```
+
 ### 工具类
 
 #### LocalLRUCache
