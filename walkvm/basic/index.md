@@ -65,7 +65,7 @@ walkvm是一款基于虚拟DOM与属性劫持的 迷你、 易用的前端MVVM�
 - 定义时将自动扫描对应的`id`属性或者以`w-controller`定义的对应id所在dom区域
 
 ---
-<div style="display: flex">
+<div style="display: flex;font-size: 14px">
   <div style="display: flex;flex:1;align-items: center;">
     <a href="https://gaiyinaizhi.github.io/walkvm/index">回列表</a>
   </div>

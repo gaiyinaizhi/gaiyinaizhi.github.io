@@ -23,7 +23,7 @@ for 指令可用于循环对象中的key/value进行输出，或输出数组中�
 
 
 ---
-<div style="display: flex">
+<div style="display: flex;font-size: 14px">
   <div style="display: flex;flex:1;align-items: center;">
     <a href="https://gaiyinaizhi.github.io/walkvm/basic/for"><--插值表达式</a>
   </div>

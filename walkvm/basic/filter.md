@@ -110,7 +110,7 @@
   ````
 
 ---
-<div style="display: flex">
+<div style="display: flex;font-size: 14px">
   <div style="display: flex;flex:1;align-items: center;">
     <a href="https://gaiyinaizhi.github.io/walkvm/basic/for"><--循环</a>
   </div>

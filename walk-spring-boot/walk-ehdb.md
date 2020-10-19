@@ -517,7 +517,7 @@ select * from table_name where column1 = :column1 and date_column < #{#nowByForm
 - 将`getSequenceXX`系列api实现使用`walk-tools-sequence`组件api完成，此api支持多种序列实现如db、redis等，提供更高性能的序列获取方式
 
 ---
-<div style="display: flex">
+<div style="display: flex;font-size: 14px">
   <div style="display: flex;flex:1;align-items: center;">
     <a href="https://gaiyinaizhi.github.io/walk-spring-boot/walk-ehdb"><--数据库访问</a>
   </div>
