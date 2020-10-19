@@ -79,7 +79,7 @@ public class Producer {
 
 ```java
 @Component
-@MqListener(topics = "${配置项}", cid="区分消费者ID或分组，可选，覆盖配置文件中的默认配置") // 声明要监听的topic列表
+@MqListener(topics = "${配置项}", profile="指定使用哪个消息配置") // 声明要监听的topic列表...其他配置详见注解
 public class ConsumerListener extends AbstractOrderedMessageListener {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
