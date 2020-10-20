@@ -11,7 +11,8 @@
   - [快速参数映射及服务编排imapper](https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-imapper)
   - [动态测试桩](https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-mock)
   - [分布式追踪](https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-tracer)
-  - [服务限流](https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-tools-limit)
+  - [分布式锁](https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-lock)
+  - [分布式序列](https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-sequence)
   
 - 高级组件
   - 前后端一体化工作流程管理swf
