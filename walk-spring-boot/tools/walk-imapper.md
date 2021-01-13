@@ -87,7 +87,7 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
 
     <!--二级操作，调用服务后再使用state-resolver返回响应码处理的情况，_this代表服务结果，_root代表上下文-->
     <flow id="secondLevel" service="xxService.call('secondLevel',_root)" state-resolver="xxDealService.dealSecondRsp(_this,_root)">
-        <transition on="success" to="callSuccess"></transition>
+        <transition on="success" to="thirdLevel"></transition>
         <transition to="callFail"></transition>
     </flow>
 
