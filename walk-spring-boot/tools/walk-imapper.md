@@ -76,18 +76,28 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
     <!--参数预处理-->
     <flow id="paramDeal" state-resolver="xxService.dealXxParam(_root)">
         <transition on="firstLevel" to="firstLevel"></transition>
-        <transition to="secondLevel"></transition>
+        <transition to="secondLevel"></transition><!-- 没有on则表示最后的else，全量匹配 -->
     </flow>
 
-    <!--一级操作-->
+    <!--一级操作，只使用state-resolver返回响应码处理的情况，transition>on配置只处理响应状态码-->
     <flow id="firstLevel" state-resolver="xxService.getFirstLevel(_root)">
         <transition on="success" to="secondLevel"></transition>
         <transition to="callFail"></transition>
     </flow>
 
+    <!--二级操作，调用服务后再使用state-resolver返回响应码处理的情况，_this代表服务结果，_root代表上下文-->
     <flow id="secondLevel" service="xxService.call('secondLevel',_root)" state-resolver="xxDealService.dealSecondRsp(_this,_root)">
         <transition on="success" to="callSuccess"></transition>
         <transition to="callFail"></transition>
+    </flow>
+
+    <!--三级操作，调用服务后直接通过transition表达式判断服务响应的结果再做transition，#root代表返回值-->
+    <flow id="thirdLevel" service="xxService.call('thirdLevel',_root)">
+        <transition on="#root[respCode] == '0000'" to="callSuccess"></transition>
+        <transition to="callFail">
+            <!-- 设置错误码到上下文 -->
+            <param name="respCode" default="1234"></param>
+        </transition>
     </flow>
 
     <!--业务调用失败，返回失败信息-->
@@ -98,8 +108,8 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
     </output>
 
 
-    <!--调研成功，返回成功信息-->
-    <output id="callSuccess" type =  "com.chinaunicom.cbss2.beeaction.bean.biz.BeeActionResponse" > <!-- 调用成功，正常返回 -->
+    <!--调用成功，返回成功信息-->
+    <output id="callSuccess" type="ResponseInfo" > <!-- 调用成功，正常返回 -->
         <respData>respData</respData>
         <respMsg default="xx成功！">respMsg</respMsg>
         <respCode default="0000">respCode</respCode>
