@@ -68,9 +68,7 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
 
 - 更多功能直接参考[flow.xsd](https://gaiyinaizhi.github.io/walk-spring-boot/tools/imapper/flow.xsd)
 
-  
 
-- 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <imapper type="flow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.walkframework.com/imapper/flow">
