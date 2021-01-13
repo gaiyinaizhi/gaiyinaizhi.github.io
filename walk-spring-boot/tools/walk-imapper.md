@@ -22,40 +22,55 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
 - 提供filter功能，过滤对象或列表类型节点，使不符合条件的对象被过滤掉
 - 提供returnType注册当前节点代表的java bean对象功能
 - 提供append-mode追加模式，直接将来源对象全量复制，可配置更多配置或同名字段用于追加或替换原值
-- 更多功能直接参考[flow.xsd](https://gaiyinaizhi.github.io/walk-spring-boot/tools/imapper/flow.xsd)
+- 提供`prepareDefaultTransformers`配置预加载内置变量如序列、时间戳等
+- 提供this模式加载，对象下简单字段直接通过直接字段名获取而不是对象的别名`var`配置，批量this字段时大幅度提高性能
+- 更多功能直接参考`atom.xsd`。
+
+
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<imapper>
-    <req>
-        <params>
-            <xxReq>
-                <order>
-                    <param1 transform="@xxDealService.getParam1(_root)"></param1>
-                    <param2 default="">object.param2</param2>
-                    <param3 format="trimToNull">param3</param3>
-                    <param4 type="list"
-                               transform="@xxSubmitService.composeXxItem(_root)" var="xxItem" filter="feeMode == '01'">
-                        <param5>object2.param5</param5>
-                        <param6 default="2">param6</param6>
-                        <param7 type="list" src="xxItem.feeInfo" var="xxInfo">
-                            <param8 default="">xxInfo.feeMode</param8>
-                        </param7>
-                    </param4>
-                </order>
-            </xxReq>
-        </params>
-    </req>
+<?xml version="1.0" encoding="UTF-8"?>
+<imapper thisMode="true" prepareDefaultTransformers="SYSDATE19" xmlns="http://www.walkframework.com/imapper/atom">
+    <ORDER_REQ>
+        <ORDER src="INPUT_ORDER" transform="@xmlMapperUseCaseService.appendParam(_this['ORDER_ID'], _root[INPUT_ORDER_SUB_ITEM][], #safeGet(_root, 'INPUT_ORDER_GOODS.xxx.TMPL_ID'))" var="order">
+            <ORDER_ID holder="1" format="trimToNull">ORDER_ID</ORDER_ID>
+            <MORE_INFO>moreOrderInfo</MORE_INFO>
+            <SOME_CODE default="9521">SOME_CODE</SOME_CODE>
+            <SEQ default="SEQ" defaultType="TRANSFORMER"></SEQ>
+            <PROTOCAL src="INPUT_ORDER_PROTOCOL" var="protocal">
+                <PROTOCOL_ID holder="1">PROTOCOL_ID</PROTOCOL_ID>
+                <UPDATE_TIME>_root.SYSDATE19</UPDATE_TIME>
+                <PROVINCE_CODE enumType="PROVINCE_CODE">PROVINCE_CODE</PROVINCE_CODE>
+            </PROTOCAL>
+            <CUST_INFO src="INPUT_ORDER_SUB_ITEM" var="custInfo">
+                <PSPT_ID holder="1">PSPT_NO</PSPT_ID>
+                <CUST_ID>INPUT_ORDER.CUST_ID</CUST_ID>
+                <CUST_NAME default="客户">CUST_NAME</CUST_NAME>
+                <CUST_TYPE enumType="CUST_TYPE">CUST_TYPE</CUST_TYPE>
+                <SEX enumMap="1=男, 0=女">SEX</SEX>
+                <BIRTHDAY>BIRTHDAY</BIRTHDAY>
+                <OTHER_DATE defaultType="SELECTOR" default="_root.SYSDATE19">OPERATE_TIME</OTHER_DATE>
+            </CUST_INFO>
+        </ORDER>
+    </ORDER_REQ>
 </imapper>
 ```
 
 ### 流程编排
 
 - 如下示例
+
 - `flow`定义一个流程调用，可以执行`service`，也可以执行`state-resolver`进行流程状态判断，也可以同时存在，使用`state-resolver`对外部服务调用进行状态判断
+
 - `output`定义一个输出节点，一般分为正常输出、业务失败输出和服务异常输出，声明`exception="true"`即表示异常输出节点
+
 - 输出节点的子节点可认为是一次报文转换，可使用报文转换中的所有特性
-- 更多说明参考flow.xsd
+
+- 更多功能直接参考[flow.xsd](https://gaiyinaizhi.github.io/walk-spring-boot/tools/imapper/flow.xsd)
+
+  
+
+- 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <imapper type="flow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.walkframework.com/imapper/flow">
