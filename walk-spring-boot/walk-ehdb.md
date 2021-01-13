@@ -13,7 +13,7 @@
         <dependency>
             <groupId>org.walkframework.boot</groupId>
             <artifactId>walk-ehdb</artifactId>
-            <version>3.6.0</version> <!-- 2020/09/01 -->
+            <version>3.7.8</version> <!-- 2020/12/28 -->
         </dependency>
 ````
 
@@ -359,7 +359,7 @@ walk.ehdb.txMethod.add* = PROPAGATION_REQUIRED,-Throwable
     public void testQueryOperators() {
         ScheduleTask scheduleTask = new ScheduleTask();
         scheduleTask.letTaskModule("TOUCH_TASK");
-        scheduleTask.andOperators().name(ScheduleTask.Columns.TASK_NAME).like("%TEST");
+        scheduleTask.andOperators().name(ScheduleTask.Columns.TASK_NAME).like("TEST%");
         System.out.println(baseStaticDAO.queryOne(scheduleTask));
     }
 
@@ -387,6 +387,7 @@ walk.ehdb.txMethod.add* = PROPAGATION_REQUIRED,-Throwable
 ````
 
 - Operators中支持的全量API见`org.walkframework.boot.ehdb.bean.operator.Comparator`
+- Operators使用showcase见`org.walkframework.boot.ehdb.bean.operator.OperatorsShowcase`
 
 ````java
 public Operators greaterThan(Object value);
@@ -487,6 +488,7 @@ where column in :listParam
 - 可自行注册函数如下，逗号分隔多个静态工具类
 
   ````properties
+  ### spring boot 2.x适配模式或walk-starter-base 1.8.8以后的版本使用walk.spring-el.functions前缀注册
   walk.springEL.functions=org.walkframework.boot.ehdb.util.DynamicSqlFunctions
   ````
 

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://www.walkframework.com/imapper/flow">
+    <xs:element name="imapper">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="flow" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:annotation>
+                            <xs:documentation><![CDATA[ 一次流程调用，配置service进行服务调用，或者不配置时只做入参的transition分支判断 ]]></xs:documentation>
+                        </xs:annotation>
+                        <xs:sequence>
+                            <xs:element name="param" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:annotation>
+                                            <xs:documentation><![CDATA[ 调用flow中设置的service时传入的参数 ]]></xs:documentation>
+                                        </xs:annotation>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute name="type" type="xs:string">
+                                                <xs:annotation>
+                                                    <xs:documentation><![CDATA[ 传数来源类型，默认prototype，使用取值表达式直接取值，其他类型：
+                                                'property'：获取配置文件中的属性，
+                                                'xml'：指定xml做参数转换后传入方法，参数顺序按定义的param顺序 ]]></xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                            <xs:attribute name="default" type="xs:string">
+                                                <xs:annotation>
+                                                    <xs:documentation><![CDATA[ 默认值，当取值表达式返回为null时使用 ]]></xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                            <xs:anyAttribute processContents="lax"></xs:anyAttribute>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="transition" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:annotation>
+                                        <xs:documentation><![CDATA[ 一次流程分支判断，当on表达式为true时，跳转到to配置的流程节点 ]]></xs:documentation>
+                                    </xs:annotation>
+                                    <xs:sequence>
+                                        <xs:element name="param" maxOccurs="unbounded" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation><![CDATA[ 设置参数到上下文 ]]></xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:annotation>
+                                                        <xs:documentation><![CDATA[ 取值表达式，默认的取值上下文为当前flow调用的输出参数，如果需要使用全局参数，请使用_root.xxx进行调用 ]]></xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute name="name" type="xs:string">
+                                                            <xs:annotation>
+                                                                <xs:documentation><![CDATA[ 参数名称 ]]></xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:attribute>
+                                                        <xs:attribute name="type" type="xs:string">
+                                                            <xs:annotation>
+                                                                <xs:documentation><![CDATA[ 传数来源类型，默认prototype，使用取值表达式直接取值，其他类型：
+                                                                    'property'：获取配置文件中的属性，
+                                                                    'xml'：指定xml做参数转换后传入方法]]></xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:attribute>
+                                                        <xs:attribute name="default" type="xs:string">
+                                                            <xs:annotation>
+                                                                <xs:documentation><![CDATA[ 默认值，当取值表达式返回为null时使用 ]]></xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:attribute>
+                                                        <xs:anyAttribute processContents="lax"></xs:anyAttribute>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="on" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation><![CDATA[ 本次transition需要的表达式，只接受true/false的判断，默认的上下文为当前flow调用的输出参数，如果需要使用全局参数，请使用_root.xxx进行调用 ]]></xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="to" type="xs:string" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation><![CDATA[ 本次transition on表达式判断为true时，跳转到to指定的流程 ]]></xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" use="required">
+                            <xs:annotation>
+                                <xs:documentation><![CDATA[ 流程编码，唯一指定，服务的输出到上下文中默认指定的参数名 ]]></xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="service" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation><![CDATA[ 调用的服务签名，如：xxService.xxMethod ]]></xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="input" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation><![CDATA[ 仅当服务的入参只有一个时，使用input直接指定一次xml转换，输入指向一个原子mapper的xml路径 ]]></xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="state-resolver" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation><![CDATA[ 状态抽取服务配置，形如：xxService.xxMethod，方法默认以当前service配置的服务出参为唯一入参，返回状态参数，String类型
+                                    另：可以配置多参数如：xxService.xxMethod(_this, _root, _root.xx.xx, '常量值')
+                                    _this为当前service配置的服务出参，_root为整个flow的请求上下文
+                                ]]></xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:anyAttribute processContents="lax"></xs:anyAttribute>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="output" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation><![CDATA[ 设置输出节点，在此节点进行输出内容的配置，使用多种方式进行输出配置 ]]></xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="example" type="outputType" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation><![CDATA[ 任意节点，用法同原子的mapper配置，用于转换流程中的参数为想要的格式 ]]></xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" use="required">
+                            <xs:annotation>
+                                <xs:documentation><![CDATA[ 节点ID，流程中不能重复的唯一标识 ]]></xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="selector" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation><![CDATA[ 选择器，指定当前的xml属性转换或子节点配置输出的上下文，如果没有指定xml转换或子节点配置，则直接输出当前selector选择或者全部src ]]></xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="xml" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation><![CDATA[ 指向一个原子xml配置，转换出供直接使用的内容结构，忽略手工配置子节点 ]]></xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="exception" type="xs:boolean">
+                            <xs:annotation>
+                                <xs:documentation><![CDATA[ 指定为异常处理节点，当流程编排期间出现异常时，使用此声明接收异常，构造异常返回的内容 ]]></xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="type" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation><![CDATA[
+                                    配置返回内容的类型，对返回值提供类型转换
+                                    从1.6.0起支持使用IMapperTypeAlias.register配置别名后在此使用
+                                ]]></xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:anyAttribute processContents="lax"></xs:anyAttribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="type" type="xs:string" default="flow">
+                <xs:annotation>
+                    <xs:documentation><![CDATA[ mapper类型，使用flow进行流程编排过程，需要使用原子xml转换时，进行 ]]></xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="outputType" mixed="true">
+        <xs:annotation>
+            <xs:documentation><![CDATA[ 原子输出节点 ]]></xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="example" type="outputType" minOccurs="0"></xs:element>
+            <xs:any minOccurs="0" processContents="lax" />
+        </xs:sequence>
+        <xs:attribute name="type" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[
+                    节点类型，根据是否有子节点默认为object或prototype, 另外可以指定为：
+                    'xml': 使用其他xml构造子节点
+                    'property': 使用配置文件中的属性构造节点值
+                    'list': 配置一个列表节点
+                ]]>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="default" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 默认值，当取值表达式返回为null时使用 ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="format" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    <![CDATA[
+                    取值节点使用，对取到的值进行格式化
+                    1. 时间转字符串，输入目标时间格式
+                    2. 字符串操作:
+                        1) 桥接commons-lang3中StringUtils里以String类型为入参的操作
+                        2) 桥接commons-lang3中NumberUtils里以String类型为入参的操作
+                    ]]>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="src" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 对象节点使用object/list，用于简化取值深度或设置用于transform的对象，和var配置使用，默认在子节点中可以使用_this.property进行取值，使用var可以重置_this变量名 ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="var" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 对象节点使用object/list，配合src使用，默认在子节点中可以使用_this.property进行取值，使用var可以重置_this变量名 ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="notNull" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 设置为"true"则表示节点不能为空，给object/list使用，保留空的对象或数组 ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="transform" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 变形属性，用于对取到的值进行转换，如取到'0'转换为描述'女'，可使用spel调用服务进行转换，也可以使用spel中的内置函数进行转换
+                    1. 内置函数参见walk-starter-base中的默认工具类：SpringPropertyHolder，DateUtil，CommonUtil
+                        注册其他的内置函数使用walk.springEL.functions配置一个class列表
+                    2. 服务调用使用@serviceName.methoName(_root), _root为当前转换的根上下文，另有节点名变量为当前取值表达式取到的值
+                        如:<sex transform="@transformService.translateSexNumber(sex)">sexNumber</sex>
+                    3. 其他调用参见spel的官方文档
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="validate" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 校验属性，用于校验最终取值(transform之后)，内置校验：notNull, notEmpty, notBlank
+                    可使用spel进行自定义校验：如#{sex != '女'}，当sex值为女时即抛出异常
+                    spel使用同transform
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="append-mode" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 是否追加模式，默认:false, true时使用追加模式，对象节点使用object/list
+                追加模式打开时，将src中包含的所有节点默认追加到对象中，对象中配置的xml子节点继续追加，同名时会覆盖原来的字段
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:anyAttribute processContents="lax"></xs:anyAttribute>
+    </xs:complexType>
+</xs:schema>

@@ -15,8 +15,14 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
 - 提供object/list/类型转换，默认prototype原型，即来源字段的类型代表当前节点的类型
 - 提供format功能，将数据进行类型转换或trim等操作
 - 提供validate功能，校验必传，非空等
-- 提供default功能，提供字段默认能力
+- 提供default功能，提供字段默认能力，另有defaultType配置配合使用，达到对default值做特殊处理的效果
 - 提供transform功能，将字段取值进行变形操作，如：0,1变形为男，女，支持spel表达式处理，可进行简单数据操作或复杂的服务调用等
+- 提供enumType/enumMap功能，提供将字段做枚举类型转换的能力，[详见atom.xsd属性定义](https://gaiyinaizhi.github.io/walk-spring-boot/tools/imapper/atom.xsd)
+- 提供holder主叶子校验功能，当主叶子值为空时整个节点不做转换
+- 提供filter功能，过滤对象或列表类型节点，使不符合条件的对象被过滤掉
+- 提供returnType注册当前节点代表的java bean对象功能
+- 提供append-mode追加模式，直接将来源对象全量复制，可配置更多配置或同名字段用于追加或替换原值
+- 更多功能直接参考[flow.xsd](https://gaiyinaizhi.github.io/walk-spring-boot/tools/imapper/flow.xsd)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -24,12 +30,12 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
     <req>
         <params>
             <xxReq>
-                <order type="object">
+                <order>
                     <param1 transform="@xxDealService.getParam1(_root)"></param1>
                     <param2 default="">object.param2</param2>
                     <param3 format="trimToNull">param3</param3>
                     <param4 type="list"
-                               transform="@xxSubmitService.composeXxItem(_root)" var="xxItem">
+                               transform="@xxSubmitService.composeXxItem(_root)" var="xxItem" filter="feeMode == '01'">
                         <param5>object2.param5</param5>
                         <param6 default="2">param6</param6>
                         <param7 type="list" src="xxItem.feeInfo" var="xxInfo">
@@ -49,7 +55,7 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
 - `flow`定义一个流程调用，可以执行`service`，也可以执行`state-resolver`进行流程状态判断，也可以同时存在，使用`state-resolver`对外部服务调用进行状态判断
 - `output`定义一个输出节点，一般分为正常输出、业务失败输出和服务异常输出，声明`exception="true"`即表示异常输出节点
 - 输出节点的子节点可认为是一次报文转换，可使用报文转换中的所有特性
-
+- 更多说明参考flow.xsd
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <imapper type="flow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.walkframework.com/imapper/flow">

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://www.walkframework.com/imapper/atom">
+    <xs:element name="imapper">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="example" type="outputType" minOccurs="0"></xs:element>
+                <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" />
+            </xs:sequence>
+            <xs:attribute name="type" type="xs:string" default="atom">
+                <xs:annotation>
+                    <xs:documentation><![CDATA[ mapper类型，默认atom原子内容转换，flow时使用flow空间进行流程编排过程 ]]></xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="stringMode" type="xs:string" default="false">
+                <xs:annotation>
+                    <xs:documentation><![CDATA[ 标记是否字符串模式，该模式下所有叶子节点都渲染为字符串格式 ]]></xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="thisMode" type="xs:string" default="false">
+                <xs:annotation>
+                    <xs:documentation><![CDATA[
+                        标记是否this模式，该模式下所有叶子节点的一级取值表达式都使用当前对象的src进行渲染
+                        如：
+                            <order src="ROOT.ORDER">
+                                <orderId>ORDER_ID</orderId> <!-- 此时的ORDER_ID使用ROOT.ORDER作为上下文取值，非this模式下使用src数据根目录下的ORDER_ID -->
+                            </order>
+
+                    ]]></xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="prepareDefaultTransformers" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation><![CDATA[
+                        预置的默认值，以逗号分隔多默认值，这些值对应DefaultValueTransformer的实现类，并以该KEY加入到上下文中，以_root.KEY引用，非this模式下直接使用KEY引用
+                        如：
+                            <imapper stringMode="true" prepareDefaultTransformers="SYSDATE19">
+                                <ORDER>
+                                    <START_DATE>_root.SYSDATE19</START_DATE><!-- 直接使用该变量 -->
+                                    <OTHER_DATE default="_root.SYSDATE19" defaultType="SELECTOR">SOME_KEY_NOT_EXISTS</START_DATE><!-- 默认值方式使用该变量 -->
+                                </ORDER>
+                            </imapper>
+
+
+                    ]]></xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="outputType" mixed="true">
+        <xs:annotation>
+            <xs:documentation><![CDATA[ 原子输出节点 ]]></xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="example" type="outputType" minOccurs="0"></xs:element>
+            <xs:any minOccurs="0" processContents="lax" />
+        </xs:sequence>
+        <xs:attribute name="type" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[
+                    节点类型，根据是否有子节点默认为object或prototype, 另外可以指定为：
+                    'xml': 使用其他xml构造子节点
+                    'property': 使用配置文件中的属性构造节点值
+                    'list': 配置一个列表节点
+                ]]>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="default" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 默认值，当取值表达式返回为null时使用，配合defaultType，实现多种模式取默认值 ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="defaultType" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[
+                    - NUMBER, 数字类型，直接将默认值转成数字
+                    - SELECTOR, 选择表达式类型，此时default属性指向的值为取值表达，如_root.SOME_KEY
+                    - EL, EL表达式，可调用服务做某些取值操作
+                    - TRANSFORMER, 注册的类型转换器，实现DefaultValueTransformer，提供默认值取值入口
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="format" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[
+                    取值节点使用，对取到的值进行格式化
+                    1. 时间转字符串，输入目标时间格式
+                    2. 字符串操作:
+                        1) 桥接commons-lang3中StringUtils里以String类型为入参的操作
+                        2) 桥接commons-lang3中NumberUtils里以String类型为入参的操作
+                    3. 其他操作：
+                        1) toString: 转字符串操作，null不转换
+                        2) toJSONString: 转JSON字符串，null不转换
+            ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="src" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 对象节点使用object/list，用于简化取值深度或设置用于transform的对象，和var配置使用，默认在子节点中可以使用_this.property进行取值，使用var可以重置_this变量名 ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="var" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 对象节点使用object/list，配合src使用，默认在子节点中可以使用_this.property进行取值，使用var可以重置_this变量名 ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="notNull" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 设置为"true"则表示节点不能为空，给object/list使用，保留空的对象或数组 ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="transform" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 变形属性，用于对取到的值进行转换，如取到'0'转换为描述'女'，可使用spel调用服务进行转换，也可以使用spel中的内置函数进行转换
+                    1. 内置函数参见walk-starter-base中的默认工具类：SpringPropertyHolder，DateUtil，CommonUtil
+                        注册其他的内置函数使用walk.springEL.functions配置一个class列表
+                    2. 服务调用使用@serviceName.methoName(_root), _root为当前转换的根上下文，另有节点名变量或_this标识为当前取值表达式取到的值
+                        如:1. <sex transform="@transformService.translateSexNumber(sex)">sexNumber</sex>
+                           2. <sex transform="@transformService.translateSexNumber(_this)">sexNumber</sex>
+                    3. 其他调用参见spel的官方文档
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="validate" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 校验属性，用于校验最终取值(transform之后)，内置校验：notNull, notEmpty, notBlank
+                    可使用spel进行自定义校验：如#{sex != '女'}，当sex值为女时即抛出异常
+                    spel使用同transform
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="append-mode" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[ 是否追加模式，默认:false, true时使用追加模式，对象节点使用object/list
+                追加模式打开时，将src中包含的所有节点默认追加到对象中，对象中配置的xml子节点继续追加，同名时会覆盖原来的字段
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="returnType" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[
+                    对象返回类型，如果配置则将对象转换为指定的类型，支持object/list/xml节点中做转换
+                    支持使用IMapperTypeAlias注册类型别名，使指定的对象配置变的简单
+                    如：IMapperTypeAlias.register("XmlOrderInfo", XmlOrderInfo.class);
+                    另：在Flow中输出配置的类型也可以使用别名了~
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="filter" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[
+                    过滤器，只在type=list/object时生效
+                    配置字段名 == '值'类似的表达式，表达式使用spel解析，以当前行数据作为过滤上下文
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="holder" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[
+                    对象控制器，当取值节点配置此属性时，判断取值是否为空，包含null/空字符串/空map/空list等，
+                    为空时当前外层对象均为空，带有holder属性的控制器放在首节点才是最佳实践
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="enumType" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[
+                    枚举类型，如enumType="SEX"时，应该有一个EnumParamRegistry的实现类服务注册到上下文中，
+                    并且将该实例中每一个Map静态变量进行注册，此实例中应该包含一个命名为SEX的成员。
+                    最佳实践：1. 使用接口定义常量，适用于几乎不变更的枚举
+                    @Service
+                    public class ApplicationEnumRegistry implements CustInfoEnumRegistry, PsptInfoEnumRegistry {
+                    }
+                    public interface CustInfoEnumRegistry implements EnumParamRegistry {
+                        Map<String, String> SEX = CollectionUtils.buildKeyValueMap("1", "男", "0", "女");
+                    }
+                    public interface PsptInfoEnumRegistry implements EnumParamRegistry {
+                        Map<String, String> NATION = CollectionUtils.buildKeyValueMap("1", "汉", "2", "满");
+                    }
+                    2. 使用自定义服务抽取枚举值，开放给业务应用自定义处理，定制Service实现org.walkframework.boot.tools.imapper.param.EnumParamResolver即可
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="enumMap" type="xs:string">
+            <xs:annotation>
+                <xs:documentation><![CDATA[
+                    枚举类型常量，如enumMap="key1=value1,key2=value2"时，当入参为key1时，转换为value1
+                ]]></xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+        <xs:anyAttribute processContents="lax"></xs:anyAttribute>
+    </xs:complexType>
+</xs:schema>
