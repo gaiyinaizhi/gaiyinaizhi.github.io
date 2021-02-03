@@ -58,4 +58,7 @@ public class CommonSequenceService implements org.walkframework.boot.tools.seque
   <div style="display: flex;flex:1;align-items: center;">
     <a href="https://gaiyinaizhi.github.io/walk-spring-boot/index">回列表</a>
   </div>
+    <div style="display: flex;flex:1;align-items: center;">
+      <a href="https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-tools-limit">服务限流--></a>
+    </div>
 </div>

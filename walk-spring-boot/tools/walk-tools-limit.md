@@ -12,7 +12,7 @@ limit组件用于对某个服务进行限流，并可通过指定key来设置基
   <dependency>
       <groupId>org.walkframework.boot</groupId>
       <artifactId>walk-tools-limit</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.6</version>
   </dependency>
   ````
 
@@ -85,7 +85,7 @@ long slidingWindow() default 60;
 ---
 <div style="display: flex;font-size: 14px">
   <div style="display: flex;flex:1;align-items: center;">
-    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-tracer"><--分布式追踪</a>
+    <a href="https://gaiyinaizhi.github.io/walk-spring-boot/tools/walk-sequence"><--分布式序列</a>
   </div>
   <div style="display: flex;flex:1;align-items: center;">
     <a href="https://gaiyinaizhi.github.io/walk-spring-boot/index">回列表</a>
