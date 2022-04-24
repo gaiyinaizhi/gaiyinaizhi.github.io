@@ -68,9 +68,9 @@
 
 ```properties
 # 配置Edas服务的接口代理
-walk.mock.interface.queryOrderInfoWoTouchService=com.chinaunicom.cbss2.ordercenter.woTouch.query.service.QueryOrderInfoWoTouchService
+walk.mock.interface.queryXXService=com.xx.xxService
 # 配置Edas服务中某方法的版本号
-walk.mock.version.queryOrderInfoWoTouchService.userOrderQuery=1.0
+walk.mock.version.queryXXService.userOrderQuery=1.0
 ```
 
 
