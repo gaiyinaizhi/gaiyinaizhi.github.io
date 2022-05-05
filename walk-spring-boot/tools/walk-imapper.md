@@ -8,6 +8,33 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
 
 提供动态发布能力，实现在线更新应用的能力
 
+### 依赖
+
+```xml
+<dependency>
+    <groupId>org.walkframework.boot</groupId>
+    <artifactId>walk-starter-base</artifactId>
+    <version>${latestVersion!1.9.6}</version>
+</dependency>
+
+<dependency>
+    <groupId>org.walkframework.boot</groupId>
+    <artifactId>walk-tools-imapper</artifactId>
+    <version>${latestVersion!1.7.7}</version>
+</dependency>
+```
+
+- 特别说明，如果不需要使用redis订阅能力，可以在`walk-tools-imapper`依赖中增加如下排除语法取消
+
+```xml
+    <exclusions>
+        <exclusion>
+            <groupId>org.walkframework.boot</groupId>
+            <artifactId>walk-tools-config</artifactId>
+        </exclusion>
+    </exclusions>
+```
+
 ### 报文转换
 
 - 如下示例
