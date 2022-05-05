@@ -32,7 +32,7 @@
 
 ### 定义序列及序列的使用方式
 
-实现接口，starter会自动扫描定义的Sequence对象，检查对象是否注册，未注册时会自动注册
+实现接口，starter会自动扫描定义的Sequence对象，检查对象是否注册，未注册时会自动注册，使用数据库模式时，也可以使用归档数据直接配置而不用在代码中定义该序列
 
 ```java
 @Service
@@ -49,6 +49,20 @@ public class CommonSequenceService implements org.walkframework.boot.tools.seque
 }
 ```
 
+### 数据库序列定义参考
+
+```sql
+
+CREATE TABLE `sys_sequence` (
+  `name` varchar(128) NOT NULL COMMENT '序列名',
+  `current` int(8) DEFAULT NULL COMMENT '当前值',
+  `max_value` int(8) DEFAULT NULL COMMENT '最大值',
+  `start` int(8) DEFAULT NULL COMMENT '开始值',
+  `cache_size` int(8) DEFAULT NULL COMMENT '单次获取缓存数',
+  PRIMARY KEY (`name`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+```
 
 ---
 <div style="display: flex;font-size: 14px">
