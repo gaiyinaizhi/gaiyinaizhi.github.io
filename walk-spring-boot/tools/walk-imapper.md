@@ -52,6 +52,7 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
 - 提供`prepareDefaultTransformers`配置预加载内置变量如序列、时间戳等
 - 提供this模式加载，对象下简单字段直接通过直接字段名获取而不是对象的别名`var`配置，批量this字段时大幅度提高性能
     - this模式下，如果是直接字段会都认为是当前父级src对应的字段取值，如果是xx.xx这种表达式，仍然从根对象下开始查询
+    - this模式下，执行transform转换时，_root指向当前对象，_root['_root']指向整体入参，非this模式时，_root即为根对象
 - 更多功能直接参考`atom.xsd`。
 
 
