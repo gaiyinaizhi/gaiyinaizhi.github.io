@@ -44,6 +44,8 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
 - 提供validate功能，校验必传，非空等
 - 提供default功能，提供字段默认能力，另有defaultType配置配合使用，达到对default值做特殊处理的效果
 - 提供transform功能，将字段取值进行变形操作，如：0,1变形为男，女，支持spel表达式处理，可进行简单数据操作或复杂的服务调用等
+    - transform使用spring el进行数据抽取和转换，通常_root指向根入参对象，this模式时_root指向外部对象指定的src对象，通过_root._root可取到根入参
+    - 使用@xxService.xx(非空参数名, _root['可空的参数名']， #safeGet(_root, '路径1.路径2.路径3等参数安全获取'))
 - 提供enumType/enumMap功能，提供将字段做枚举类型转换的能力，[详见atom.xsd属性定义](https://gaiyinaizhi.github.io/walk-spring-boot/tools/imapper/atom.xsd)
 - 提供holder主叶子校验功能，当主叶子值为空时整个节点不做转换
 - 提供filter功能，过滤对象或列表类型节点，使不符合条件的对象被过滤掉
@@ -53,7 +55,7 @@ imapper报文转换旨在将界面入参和会话参数等自动转换为外部�
 - 提供this模式加载，对象下简单字段直接通过直接字段名获取而不是对象的别名`var`配置，批量this字段时大幅度提高性能
     - this模式下，如果是直接字段会都认为是当前父级src对应的字段取值，如果是xx.xx这种表达式，仍然从根对象下开始查询
     - this模式下，执行transform转换时，_root指向当前对象(当外层有个src="xx"指向某一对象时)，_root._root指向整体入参，非this模式时，_root即为根对象
-- 更多功能直接参考`atom.xsd`。
+- 更多功能直接参考[atom.xsd属性定义](https://gaiyinaizhi.github.io/walk-spring-boot/tools/imapper/atom.xsd)。
 
 
 
