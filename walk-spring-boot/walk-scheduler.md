@@ -81,6 +81,30 @@ CREATE TABLE `schedule_task_log` (
   KEY `index_task_log` (`task_name`)
 )  COMMENT='任务运行日志表' ;
 
+CREATE TABLE `schedule_task_registry` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `task_module` varchar(64) NOT NULL COMMENT '任务模块',
+  `registry` varchar(100) DEFAULT NULL COMMENT '注册信息，一般为IP或ip:port，可以自定义为任意信息',
+  `is_coordinator` bit(1) DEFAULT b'0' COMMENT '是否为协调器，每个module只有一个协调器',
+  `host` varchar(100) DEFAULT NULL COMMENT '当前注册应用的主机信息',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态，1：在线，0：离线',
+  `update_time` timestamp NOT NULL COMMENT '最近更新时间',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `schedule_task_registry_un` (`registry`),
+  KEY `schedule_task_registry_task_module_IDX` (`task_module`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='定时任务调度注册中心';
+
+CREATE TABLE `schedule_task_distribution` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `registry` varchar(100) NOT NULL COMMENT '注册信息',
+  `task_key` varchar(100) NOT NULL COMMENT '任务主键',
+  `execution_key` varchar(100) DEFAULT NULL COMMENT '当前任务执行标识',
+  `distribution` text NOT NULL COMMENT '调度信息',
+  `update_time` timestamp NOT NULL COMMENT '最近更新时间',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `schedule_task_distribution_un` (`registry`,`task_key`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='定时任务调度信息分配结果';
+
 ```
 
 #### 项目配置
@@ -90,6 +114,46 @@ CREATE TABLE `schedule_task_log` (
 walk.module = shop-visitor-task
 ```
 
+### 协调器及调度器支持
+
+- since 2022/7/14 walk-scheduler version: 2.1.0
+- 使用如下依赖代替原walk-scheduler依赖，即可增加协调和调度能力
+```xml
+            <dependency>
+                <groupId>org.walkframework.boot</groupId>
+                <artifactId>walk-scheduler-dispatchable</artifactId>
+                <version>1.0</version>
+            </dependency>
+```
+
+- schedule_task配置中增加lock_mode=`scheduleCoordinate`可将调度方式修改为协调器执行定时任务，可避免大批量的任务对redis的瞬时压力
+
+- schedule_task配置中增加task_config配置参考如下，将lock_mode设置为none，即可打开动态调度能力，使所有节点各自分配某些任务进行处理，需要在应用中自行实现任务分配方法
+
+```json
+{"distributor": {"service":"scheduleDistributeServiceSample"}}
+```
+```java
+// 实现该服务，将服务名配置到如上service字段中
+public interface ScheduleDistributeService {
+
+    /**
+     * 执行调度
+     *
+     * @param scheduleDistributor 调度信息
+     * @param allRegistry 全部注册信息
+     * @return 调度结果列表
+     */
+    List<ScheduleDistribution> doDistribute(ScheduleDistributor scheduleDistributor, List<ScheduleRegistry> allRegistry);
+}
+```
+```java
+    // 每个节点都可以接收自己本次任务中需要处理哪些数据
+    @WScheduler("TEST_DISTRIBUTE")
+    public void testDistribute(ScheduleDistribution distribution) {
+        logger.info("Beta接收到任务：" + distribution.getResult());
+    }
+```
 #### 其他配置
 
 使用`walk.scheduler.xxx`进行覆盖配置信息
