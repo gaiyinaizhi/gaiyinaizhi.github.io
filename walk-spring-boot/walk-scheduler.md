@@ -15,7 +15,7 @@
 ```
 
 - 最近更新
-    - 2.1.1 增加控制反转特性，通过配置调用服务的能力，原来必须在代码中通过`@WScheduler`定义task_name
+    - 2.1.1 增加控制反转特性，通过配置调用服务的能力，原来必须在代码中通过`@WScheduler`定义task_name，在task_config中配置如{"invokeService":"schedulerService"}，即默认调用schedulerService.execute方法，也可以通过指定xxService.methodName指定唯一方法名，不唯一时取第一个
     - 2.1.0 增加协调调度能力，可通过服务对集群中多节点进行分片任务分配，可使大任务性能提升
 
 ## 使用说明
