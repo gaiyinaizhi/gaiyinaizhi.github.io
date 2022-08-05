@@ -21,7 +21,7 @@
 title: walk系列文章
 email: gaiyinaizhi@163.com
 description: >- # this means to ignore newlines until "baseurl:"
-  本站博客基于本人自研的walk系列组件推出文章，目前在公司内部开源阶段
+  本站博客基于本人自研的walk系列组件推出文章
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://gaiyinaizhi.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  gaiyinaizhi@163.com
