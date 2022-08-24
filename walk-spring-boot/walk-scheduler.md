@@ -85,6 +85,23 @@ CREATE TABLE `schedule_task_log` (
   KEY `index_task_log` (`task_name`)
 )  COMMENT='任务运行日志表' ;
 
+
+/** 使用检查点功能时依赖 */
+DROP TABLE IF EXISTS `schedule_task_checkpoint`;
+
+CREATE TABLE `schedule_task_checkpoint` (
+  `task_name` varchar(64) NOT NULL COMMENT '任务标识',
+  `execution_id` varchar(64) DEFAULT NULL COMMENT '任务运行编码',
+  `checkpoint_time` timestamp NULL DEFAULT NULL COMMENT '时间检查点',
+  `checkpoint_str` varchar(4000) DEFAULT NULL COMMENT '字符串检查点',
+  `update_time` timestamp NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`task_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='定时任务检查点';
+
+
+/** 使用分布式调度时使用 */
+DROP TABLE IF EXISTS `schedule_task_registry`;
+
 CREATE TABLE `schedule_task_registry` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `task_module` varchar(64) NOT NULL COMMENT '任务模块',
@@ -97,6 +114,8 @@ CREATE TABLE `schedule_task_registry` (
   UNIQUE KEY `schedule_task_registry_un` (`registry`),
   KEY `schedule_task_registry_task_module_IDX` (`task_module`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='定时任务调度注册中心';
+
+DROP TABLE IF EXISTS `schedule_task_distribution`;
 
 CREATE TABLE `schedule_task_distribution` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
